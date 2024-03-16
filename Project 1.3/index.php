@@ -51,21 +51,40 @@
             </form>
         </div>
 
-        <div class="dropdown">
-            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                View All Tables
-            </button>
-            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                <a class="dropdown-item" onclick="location.href='?action=viewAllMotionPictures'">View All Motion Pictures</a>
-                <a class="dropdown-item" onclick="location.href='?action=viewAllUsers'">View All Users</a>
-                <a class="dropdown-item" onclick="location.href='?action=viewAllLikes'">View All Likes</a>
-                <a class="dropdown-item" onclick="location.href='?action=viewAllMovies'">View All Movies</a>
-                <a class="dropdown-item" onclick="location.href='?action=viewAllSeries'">View All Series</a>
-                <a class="dropdown-item" onclick="location.href='?action=viewAllPeople'">View All People</a>
-                <a class="dropdown-item" onclick="location.href='?action=viewAllRoles'">View All Roles</a>
-                <a class="dropdown-item" onclick="location.href='?action=viewAllAwards'">View All Awards</a>
-                <a class="dropdown-item" onclick="location.href='?action=viewAllGenres'">View All Genres</a>
-                <a class="dropdown-item" onclick="location.href='?action=viewAllLocations'">View All Locations</a>
+        <div class="container">
+            <div class="card" style="width: 18rem;">
+                <div class="card-body">
+                    <h5 class="card-title">View All Tables</h5>
+                    <div class="dropdown">
+                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            All Tables Dropdown
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <a class="dropdown-item" onclick="location.href='?action=viewAllMotionPictures'">View All Motion Pictures</a>
+                            <a class="dropdown-item" onclick="location.href='?action=viewAllUsers'">View All Users</a>
+                            <a class="dropdown-item" onclick="location.href='?action=viewAllLikes'">View All Likes</a>
+                            <a class="dropdown-item" onclick="location.href='?action=viewAllMovies'">View All Movies</a>
+                            <a class="dropdown-item" onclick="location.href='?action=viewAllSeries'">View All Series</a>
+                            <a class="dropdown-item" onclick="location.href='?action=viewAllPeople'">View All People</a>
+                            <a class="dropdown-item" onclick="location.href='?action=viewAllRoles'">View All Roles</a>
+                            <a class="dropdown-item" onclick="location.href='?action=viewAllAwards'">View All Awards</a>
+                            <a class="dropdown-item" onclick="location.href='?action=viewAllGenres'">View All Genres</a>
+                            <a class="dropdown-item" onclick="location.href='?action=viewAllLocations'">View All Locations</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="card" style="width: 60rem;">
+                <div class="card-body">
+                    <h5 class="card-title">Search Motion Picture</h5>
+                    <input type="text" class="form-control" placeholder="Enter motion picture name" name="searchMPName" id="searchMPText">
+                    <div class="input-group-append">
+                        <button class="btn btn-outline-secondary" type="submit" name="searchMP" id="searchMPButton">Search</button>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -116,7 +135,7 @@
                 $stmt->bindParam(':ageLimit', $ageLimit, PDO::PARAM_INT);
                 $headers = ["ID", "First Name", "Last Name"];
                 $isMovie = false;
-            } elseif (isset($_POST['sign_up'])) {
+            }elseif (isset($_POST['sign_up'])) {
                 // Check if the user information is available
                 if (isset($_POST['email']) && !empty($_POST['email']) && isset($_POST['name']) && !empty($_POST['name']) && isset($_POST['age']) && !empty($_POST['age'])) {
                     // Prepare the SQL statement to check if the email address already exists in the user table
