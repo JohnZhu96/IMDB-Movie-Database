@@ -53,27 +53,20 @@
 
         <div class="dropdown">
             <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Dropdown button
+                View All Tables
             </button>
             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                <a class="dropdown-item" href="#">Action</a>
-                <a class="dropdown-item" href="#">Another action</a>
-                <a class="dropdown-item" href="#">Something else here</a>
+                <a class="dropdown-item" onclick="location.href='?action=viewAllMotionPictures'">View All Motion Pictures</a>
+                <a class="dropdown-item" onclick="location.href='?action=viewAllUsers'">View All Users</a>
+                <a class="dropdown-item" onclick="location.href='?action=viewAllLikes'">View All Likes</a>
+                <a class="dropdown-item" onclick="location.href='?action=viewAllMovies'">View All Movies</a>
+                <a class="dropdown-item" onclick="location.href='?action=viewAllSeries'">View All Series</a>
+                <a class="dropdown-item" onclick="location.href='?action=viewAllPeople'">View All People</a>
+                <a class="dropdown-item" onclick="location.href='?action=viewAllRoles'">View All Roles</a>
+                <a class="dropdown-item" onclick="location.href='?action=viewAllAwards'">View All Awards</a>
+                <a class="dropdown-item" onclick="location.href='?action=viewAllGenres'">View All Genres</a>
+                <a class="dropdown-item" onclick="location.href='?action=viewAllLocations'">View All Locations</a>
             </div>
-        </div>
-
-        <!-- Buttons to view all tables -->
-        <div class="text-center mb-4">
-            <button onclick="location.href='?action=viewAllMotionPictures'" class="btn btn-info">View All Motion Pictures</button>
-            <button onclick="location.href='?action=viewAllUsers'" class="btn btn-info">View All Users</button>
-            <button onclick="location.href='?action=viewAllLikes'" class="btn btn-info">View All Likes</button>
-            <button onclick="location.href='?action=viewAllMovies'" class="btn btn-info">View All Movies</button>
-            <button onclick="location.href='?action=viewAllSeries'" class="btn btn-info">View All Series</button>
-            <button onclick="location.href='?action=viewAllPeople'" class="btn btn-info">View All People</button>
-            <button onclick="location.href='?action=viewAllRoles'" class="btn btn-info">View All Roles</button>
-            <button onclick="location.href='?action=viewAllAwards'" class="btn btn-info">View All Awards</button>
-            <button onclick="location.href='?action=viewAllGenres'" class="btn btn-info">View All Genres</button>
-            <button onclick="location.href='?action=viewAllLocations'" class="btn btn-info">View All Locations</button>
         </div>
     </div>
     <div class="container">
