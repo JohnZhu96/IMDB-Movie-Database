@@ -88,10 +88,11 @@
                                     All Other Queries Dropdown
                                 </button>
                                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                    <a class="dropdown-item" href="#" data-toggle="modal" data-target="#modalSearchMPName">Search Motion Pictures by Names</a>
+                                    <a class="dropdown-item" href="#" data-toggle="modal" data-target="#modalSearchMovieName">Search Movies by Names</a>
                                     <a class="dropdown-item" href="#" data-toggle="modal" data-target="#modalFindMovieLiked">Find Movies that are Liked by a User Email</a>
                                     <a class="dropdown-item" href="#" data-toggle="modal" data-target="#modalSearchMPLocation">Search Motion Pictures by Shooting Location Country</a>
                                     <a class="dropdown-item" href="#" data-toggle="modal" data-target="#modalListDirectorSeriesZip">List directors who have directed TV series in a zip code</a>
+                                    <a class="dropdown-item" href="#" data-toggle="modal" data-target="#modalFindPeopleKAwards">Find people who have received more than k awards for a single motion picture in the same year</a>
                                 </div>
                             </div>
                         </div>
@@ -100,23 +101,23 @@
             </div>
         </div>
 
-        <!-- Form for Search Motion Picture by Name -->
-        <div class="modal fade" id="modalSearchMPName" tabindex="-1" role="dialog" aria-labelledby="modalSearchMPNameLabel" aria-hidden="true">
+        <!-- Form for Search Movie by Name -->
+        <div class="modal fade" id="modalSearchMovieName" tabindex="-1" role="dialog" aria-labelledby="modalSearchMovieNameLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
-                <form id="searchMPNameForm" method="post">
+                <form id="searchMovieNameForm" method="post">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="modalSearchMPNameLabel">Search Motion Picture by Name</h5>
+                            <h5 class="modal-title" id="modalSearchMovieNameLabel">Search Movies by Names</h5>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
                         <div class="modal-body">
-                            <input type="text" class="form-control" placeholder="Enter motion picture name" name="searchMPName" id="searchMPName">
+                            <input type="text" class="form-control" placeholder="Enter movie name" name="searchMovieName" id="searchMovieName">
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <button class="btn btn-primary" type="submit" name="searchMPNameButton" id="searchMPNameButton">Search</button>
+                            <button class="btn btn-primary" type="submit" name="searchMovieNameButton" id="searchMovieNameButton">Search</button>
                         </div>
                     </div>
                 </form>
@@ -191,9 +192,32 @@
                 </form>
             </div>
         </div>
-        
-        
+
+        <!-- Form for Find people who have received more than k awards for a single motion picture in the same year -->
+        <div class="modal fade" id="modalFindPeopleKAwards" tabindex="-1" role="dialog" aria-labelledby="modalFindPeopleKAwardsLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <form id="findPeopleKAwardsForm" method="post">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="modalFindPeopleKAwardsLabel">Find people who have received more than k awards for a single motion picture in the same year</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <input type="text" class="form-control" placeholder="Enter value k" name="findPeopleKAwards" id="findPeopleKAwards">
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button class="btn btn-primary" type="submit" name="findPeopleKAwardsButton" id="findPeopleKAwardsButton">Search</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>    
     </div>
+
+
     <div class="container">
         <h1>Results</h1>
         <?php
@@ -310,18 +334,19 @@
                     echo "Email or Movie ID is missing.";
                 }
             // Query 2
-            } elseif (isset($_POST['searchMPNameButton'])){
-                // Check if the Movie Picture name is available
-                if (isset($_POST['searchMPName']) && !empty($_POST['searchMPName'])){
+            } elseif (isset($_POST['searchMovieNameButton'])){
+                // Check if the Movie name is available
+                if (isset($_POST['searchMovieName']) && !empty($_POST['searchMovieName'])){
                     $stmt = $conn->prepare("SELECT name, rating, production, budget 
-                    FROM MotionPicture 
-                    WHERE name = :searchMPName");
-                    // Bind the name parameter
-                    $stmt->bindParam(':searchMPName', $_POST['searchMPName']);
+                    FROM MotionPicture MP
+                    JOIN Movie M ON MP.id = M.mpid 
+                    WHERE name = :searchMovieName");
+                    // Bind the Movie name parameter
+                    $stmt->bindParam(':searchMovieName', $_POST['searchMovieName']);
                     $headers = ["movie name", "rating", "production", "budget"];
                     $isMovie = true;
                 }else{
-                    echo "Movie Picture Name is missing.";
+                    echo "Movie Name is missing.";
                 }
             // Query 3
             }elseif (isset($_POST['findMovieLikedEmailButton'])){
@@ -332,7 +357,7 @@
                     JOIN Likes L ON MP.id = L.mpid
                     JOIN Movie M ON MP.id = M.mpid
                     WHERE L.uemail = :findMovieLikedEmail");
-                    // Bind the name parameter
+                    // Bind the user email parameter
                     $stmt->bindParam(':findMovieLikedEmail', $_POST['findMovieLikedEmail']);
                     $headers = ["movie name", "rating", "production", "budget"];
                     $isMovie = true;
@@ -341,18 +366,18 @@
                 }
             // Query 4
             }elseif (isset($_POST['searchMPLocationButton'])){
-                // Check if the Movie Picture shooting location country is available
+                // Check if the Motion Picture shooting location country is available
                 if (isset($_POST['searchMPLocation']) && !empty($_POST['searchMPLocation'])){
                     $stmt = $conn->prepare("SELECT DISTINCT name 
                     FROM MotionPicture MP 
                     JOIN Location L ON MP.id = L.mpid 
                     WHERE L.country = :searchMPLocation");
-                    // Bind the name parameter
+                    // Bind the location parameter
                     $stmt->bindParam(':searchMPLocation', $_POST['searchMPLocation']);
                     $headers = ["motion picture name"];
                     $isMovie = true;
                 }else{
-                    echo "Movie Picture Shooting Location Country is missing.";
+                    echo "Motion Picture Shooting Location Country is missing.";
                 }
             // Query 5
             }elseif (isset($_POST['listDirectorSeriesZipButton'])){
@@ -365,12 +390,29 @@
                     JOIN MotionPicture MP ON S.mpid = MP.id 
                     JOIN Location L ON S.mpid = L.mpid 
                     WHERE R.role_name = 'Director' AND L.zip = :listDirectorSeriesZip");
-                    // Bind the name parameter
+                    // Bind the zip code parameter
                     $stmt->bindParam(':listDirectorSeriesZip', $_POST['listDirectorSeriesZip']);
                     $headers = ["director name", "TV series name"];
                     $isMovie = true;
                 }else{
                     echo "Zip Code is missing.";
+                }
+            // Query 6
+            }elseif (isset($_POST['findPeopleKAwardsButton'])){
+                // Check if the given k value is available
+                if (isset($_POST['findPeopleKAwards']) && $_POST['findPeopleKAwards'] !== ''){
+                    $stmt = $conn->prepare("SELECT P.name AS person_name, MP.name AS motion_picture_name, A.award_year, COUNT(*) AS award_count 
+                    FROM People P 
+                    JOIN Award A ON P.id = A.pid 
+                    JOIN MotionPicture MP ON A.mpid = MP.id 
+                    GROUP BY P.id, MP.id, A.award_year
+                    HAVING COUNT(*) > :findPeopleKAwards");
+                    // Bind the k value parameter
+                    $stmt->bindParam(':findPeopleKAwards', $_POST['findPeopleKAwards']);
+                    $headers = ["person name", "motion picture name", "award year", "award count"];
+                    $isMovie = true;
+                }else{
+                    echo "k Value is missing.";
                 }
             // Query 1
             }elseif ($action == 'viewAllMotionPictures') {
