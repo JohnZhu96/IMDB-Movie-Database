@@ -90,6 +90,8 @@
                                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                     <a class="dropdown-item" href="#" data-toggle="modal" data-target="#modalSearchMPName">Search Motion Pictures by Names</a>
                                     <a class="dropdown-item" href="#" data-toggle="modal" data-target="#modalFindMovieLiked">Find Movies that are Liked by a User Email</a>
+                                    <a class="dropdown-item" href="#" data-toggle="modal" data-target="#modalSearchMPLocation">Search Motion Pictures by Shooting Location Country</a>
+                                    <a class="dropdown-item" href="#" data-toggle="modal" data-target="#modalListDirectorSeriesZip">List directors who have directed TV series in a zip code</a>
                                 </div>
                             </div>
                         </div>
@@ -144,7 +146,52 @@
             </div>
         </div>
 
+         <!-- Form for Search Motion Pictures by Shooting Location Country -->
+         <div class="modal fade" id="modalSearchMPLocation" tabindex="-1" role="dialog" aria-labelledby="modalSearchMPLocationLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <form id="searchMPLocationForm" method="post">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="modalSearchMPLocationLabel">Search Motion Pictures by Shooting Location Country</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <input type="text" class="form-control" placeholder="Enter shooting location country" name="searchMPLocation" id="searchMPLocation">
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button class="btn btn-primary" type="submit" name="searchMPLocationButton" id="searchMPLocationButton">Search</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
 
+        <!-- Form for List directors who have directed TV series in a zip code -->
+        <div class="modal fade" id="modalListDirectorSeriesZip" tabindex="-1" role="dialog" aria-labelledby="modalListDirectorSeriesZipLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <form id="listDirectorSeriesZipForm" method="post">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="modalListDirectorSeriesZipLabel">List directors who have directed TV series in a zip code</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <input type="text" class="form-control" placeholder="Enter zip code" name="listDirectorSeriesZip" id="listDirectorSeriesZip">
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button class="btn btn-primary" type="submit" name="listDirectorSeriesZipButton" id="listDirectorSeriesZipButton">Search</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        
         
     </div>
     <div class="container">
@@ -262,11 +309,13 @@
                 } else {
                     echo "Email or Movie ID is missing.";
                 }
-                
+            // Query 2
             } elseif (isset($_POST['searchMPNameButton'])){
                 // Check if the Movie Picture name is available
                 if (isset($_POST['searchMPName']) && !empty($_POST['searchMPName'])){
-                    $stmt = $conn->prepare("SELECT name, rating, production, budget FROM MotionPicture WHERE name = :searchMPName");
+                    $stmt = $conn->prepare("SELECT name, rating, production, budget 
+                    FROM MotionPicture 
+                    WHERE name = :searchMPName");
                     // Bind the name parameter
                     $stmt->bindParam(':searchMPName', $_POST['searchMPName']);
                     $headers = ["movie name", "rating", "production", "budget"];
@@ -274,13 +323,14 @@
                 }else{
                     echo "Movie Picture Name is missing.";
                 }
-
+            // Query 3
             }elseif (isset($_POST['findMovieLikedEmailButton'])){
                 // Check if the user email is available
                 if (isset($_POST['findMovieLikedEmail']) && !empty($_POST['findMovieLikedEmail'])){
                     $stmt = $conn->prepare("SELECT name, rating, production, budget 
                     FROM MotionPicture MP
                     JOIN Likes L ON MP.id = L.mpid
+                    JOIN Movie M ON MP.id = M.mpid
                     WHERE L.uemail = :findMovieLikedEmail");
                     // Bind the name parameter
                     $stmt->bindParam(':findMovieLikedEmail', $_POST['findMovieLikedEmail']);
@@ -289,7 +339,40 @@
                 }else{
                     echo "User Email is missing.";
                 }
-
+            // Query 4
+            }elseif (isset($_POST['searchMPLocationButton'])){
+                // Check if the Movie Picture shooting location country is available
+                if (isset($_POST['searchMPLocation']) && !empty($_POST['searchMPLocation'])){
+                    $stmt = $conn->prepare("SELECT DISTINCT name 
+                    FROM MotionPicture MP 
+                    JOIN Location L ON MP.id = L.mpid 
+                    WHERE L.country = :searchMPLocation");
+                    // Bind the name parameter
+                    $stmt->bindParam(':searchMPLocation', $_POST['searchMPLocation']);
+                    $headers = ["motion picture name"];
+                    $isMovie = true;
+                }else{
+                    echo "Movie Picture Shooting Location Country is missing.";
+                }
+            // Query 5
+            }elseif (isset($_POST['listDirectorSeriesZipButton'])){
+                // Check if the given zip code is available
+                if (isset($_POST['listDirectorSeriesZip']) && !empty($_POST['listDirectorSeriesZip'])){
+                    $stmt = $conn->prepare("SELECT DISTINCT P.name AS director_name, MP.name AS TV_series_name 
+                    FROM People P 
+                    JOIN Role R ON P.id = R.pid
+                    JOIN Series S ON R.mpid = S.mpid
+                    JOIN MotionPicture MP ON S.mpid = MP.id 
+                    JOIN Location L ON S.mpid = L.mpid 
+                    WHERE R.role_name = 'Director' AND L.zip = :listDirectorSeriesZip");
+                    // Bind the name parameter
+                    $stmt->bindParam(':listDirectorSeriesZip', $_POST['listDirectorSeriesZip']);
+                    $headers = ["director name", "TV series name"];
+                    $isMovie = true;
+                }else{
+                    echo "Zip Code is missing.";
+                }
+            // Query 1
             }elseif ($action == 'viewAllMotionPictures') {
                 $stmt = $conn->prepare("SELECT * FROM MotionPicture");
                 $headers = ["id", "movie name", "rating", "production", "budget"];
