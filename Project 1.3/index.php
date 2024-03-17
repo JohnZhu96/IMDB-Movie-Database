@@ -192,6 +192,29 @@
                 </form>
             </div>
         </div>
+
+        <!-- Form for Find people who have received more than k awards for a single motion picture in the same year -->
+        <div class="modal fade" id="modalFindPeopleKAwards" tabindex="-1" role="dialog" aria-labelledby="modalFindPeopleKAwardsLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <form id="findPeopleKAwardsForm" method="post">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="modalFindPeopleKAwardsLabel">Find people who have received more than k awards for a single motion picture in the same year</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <input type="text" class="form-control" placeholder="Enter value k" name="findPeopleKAwards" id="findPeopleKAwards">
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button class="btn btn-primary" type="submit" name="findPeopleKAwardsButton" id="findPeopleKAwardsButton">Search</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
         
         
     </div>
