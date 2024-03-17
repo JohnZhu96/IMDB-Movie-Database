@@ -432,6 +432,33 @@
                 }else{
                     echo "k Value is missing.";
                 }
+            // Query 7
+            }elseif ($action == 'findYoungestOldestActors') {
+                $stmt = $conn->prepare("SELECT P.name AS actor_name, 
+                (YEAR(A.award_year) - YEAR(P.dob)) - (RIGHT(A.award_year, 5) < RIGHT(P.dob, 5)) AS age_at_award 
+                FROM People P 
+                JOIN Role R ON P.id = R.pid 
+                JOIN Award A ON P.id = A.pid
+                WHERE R.role_name = 'Actor' 
+                HAVING age_at_award = (SELECT age_at_award 
+                                        FROM (SELECT (YEAR(A.award_year) - YEAR(P.dob)) - (RIGHT(A.award_year, 5) < RIGHT(P.dob, 5)) AS age_at_award
+                                        FROM People P
+                                        JOIN Role R ON P.id = R.pid 
+                                        JOIN Award A ON P.id = A.pid 
+                                        WHERE R.role_name = 'Actor' 
+                                        ORDER BY age_at_award ASC 
+                                        LIMIT 1) AS youngest_age)
+                        OR 
+                        age_at_award = (SELECT age_at_award 
+                                        FROM (SELECT (YEAR(A.award_year) - YEAR(P.dob)) - (RIGHT(A.award_year, 5) < RIGHT(P.dob, 5)) AS age_at_award 
+                                        FROM People P 
+                                        JOIN Role R ON P.id = R.pid 
+                                        JOIN Award A ON P.id = A.pid 
+                                        WHERE R.role_name = 'Actor' 
+                                        ORDER BY age_at_award DESC 
+                                        LIMIT 1) AS oldest_age)");
+                $headers = ["actor name", "age (received the award)"];
+                $isMovie = true;
             // Query 1
             }elseif ($action == 'viewAllMotionPictures') {
                 $stmt = $conn->prepare("SELECT * FROM MotionPicture");
