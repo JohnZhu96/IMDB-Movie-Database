@@ -50,42 +50,47 @@
                 </div>
             </form>
         </div>
-        <!-- Dropdown menu for view all tables -->
+
         <div class="container">
-            <div class="card" style="width: 18rem;">
-                <div class="card-body">
-                    <h5 class="card-title">View All Tables</h5>
-                    <div class="dropdown">
-                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            All Tables Dropdown
-                        </button>
-                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                            <a class="dropdown-item" onclick="location.href='?action=viewAllMotionPictures'">View All Motion Pictures</a>
-                            <a class="dropdown-item" onclick="location.href='?action=viewAllUsers'">View All Users</a>
-                            <a class="dropdown-item" onclick="location.href='?action=viewAllLikes'">View All Likes</a>
-                            <a class="dropdown-item" onclick="location.href='?action=viewAllMovies'">View All Movies</a>
-                            <a class="dropdown-item" onclick="location.href='?action=viewAllSeries'">View All Series</a>
-                            <a class="dropdown-item" onclick="location.href='?action=viewAllPeople'">View All People</a>
-                            <a class="dropdown-item" onclick="location.href='?action=viewAllRoles'">View All Roles</a>
-                            <a class="dropdown-item" onclick="location.href='?action=viewAllAwards'">View All Awards</a>
-                            <a class="dropdown-item" onclick="location.href='?action=viewAllGenres'">View All Genres</a>
-                            <a class="dropdown-item" onclick="location.href='?action=viewAllLocations'">View All Locations</a>
+            <div class="row">
+                <div class="col-md-6">
+                    <!-- Dropdown menu for view all tables -->
+                    <div class="card" style="width: 100%;">
+                        <div class="card-body">
+                            <h5 class="card-title">View All Tables</h5>
+                            <div class="dropdown">
+                                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    All Tables Dropdown
+                                </button>
+                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                    <a class="dropdown-item" onclick="location.href='?action=viewAllMotionPictures'">View All Motion Pictures</a>
+                                    <a class="dropdown-item" onclick="location.href='?action=viewAllUsers'">View All Users</a>
+                                    <a class="dropdown-item" onclick="location.href='?action=viewAllLikes'">View All Likes</a>
+                                    <a class="dropdown-item" onclick="location.href='?action=viewAllMovies'">View All Movies</a>
+                                    <a class="dropdown-item" onclick="location.href='?action=viewAllSeries'">View All Series</a>
+                                    <a class="dropdown-item" onclick="location.href='?action=viewAllPeople'">View All People</a>
+                                    <a class="dropdown-item" onclick="location.href='?action=viewAllRoles'">View All Roles</a>
+                                    <a class="dropdown-item" onclick="location.href='?action=viewAllAwards'">View All Awards</a>
+                                    <a class="dropdown-item" onclick="location.href='?action=viewAllGenres'">View All Genres</a>
+                                    <a class="dropdown-item" onclick="location.href='?action=viewAllLocations'">View All Locations</a>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
-        <!-- Section for All Other Queries -->
-        <div class="container">
-            <div class="card" style="width: 18rem;">
-                <div class="card-body">
-                    <h5 class="card-title">All Other Queries</h5>
-                    <div class="dropdown">
-                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            All Other Queries Dropdown
-                        </button>
-                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                            <a class="dropdown-item" href="#" data-toggle="modal" data-target="#modalSearchMPName">Search Motion Pictures by Names</a>
+                <div class="col-md-6">
+                    <!-- Section for All Other Queries -->
+                    <div class="card" style="width: 100%;">
+                        <div class="card-body">
+                            <h5 class="card-title">All Other Queries</h5>
+                            <div class="dropdown">
+                                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    All Other Queries Dropdown
+                                </button>
+                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                    <a class="dropdown-item" href="#" data-toggle="modal" data-target="#modalSearchMPName">Search Motion Pictures by Names</a>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
