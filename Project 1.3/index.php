@@ -400,7 +400,7 @@
             // Query 6
             }elseif (isset($_POST['findPeopleKAwardsButton'])){
                 // Check if the given k value is available
-                if (isset($_POST['findPeopleKAwards']) && !empty($_POST['findPeopleKAwards'])){
+                if (isset($_POST['findPeopleKAwards']) && $_POST['findPeopleKAwards'] !== ''){
                     $stmt = $conn->prepare("SELECT P.name AS person_name, MP.name AS motion_picture_name, A.award_year, COUNT(*) AS award_count 
                     FROM People P 
                     JOIN Award A ON P.id = A.pid 
