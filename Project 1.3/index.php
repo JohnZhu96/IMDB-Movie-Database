@@ -88,7 +88,7 @@
                                     All Other Queries Dropdown
                                 </button>
                                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                    <a class="dropdown-item" href="#" data-toggle="modal" data-target="#modalSearchMPName">Search Motion Pictures by Names</a>
+                                    <a class="dropdown-item" href="#" data-toggle="modal" data-target="#modalSearchMovieName">Search Movies by Names</a>
                                     <a class="dropdown-item" href="#" data-toggle="modal" data-target="#modalFindMovieLiked">Find Movies that are Liked by a User Email</a>
                                     <a class="dropdown-item" href="#" data-toggle="modal" data-target="#modalSearchMPLocation">Search Motion Pictures by Shooting Location Country</a>
                                     <a class="dropdown-item" href="#" data-toggle="modal" data-target="#modalListDirectorSeriesZip">List directors who have directed TV series in a zip code</a>
