@@ -214,10 +214,10 @@
                     </div>
                 </form>
             </div>
-        </div>
-        
-        
+        </div>    
     </div>
+
+
     <div class="container">
         <h1>Results</h1>
         <?php
@@ -341,7 +341,7 @@
                     FROM MotionPicture MP
                     JOIN Movie M ON MP.id = M.mpid 
                     WHERE name = :searchMovieName");
-                    // Bind the name parameter
+                    // Bind the Movie name parameter
                     $stmt->bindParam(':searchMovieName', $_POST['searchMovieName']);
                     $headers = ["movie name", "rating", "production", "budget"];
                     $isMovie = true;
@@ -357,7 +357,7 @@
                     JOIN Likes L ON MP.id = L.mpid
                     JOIN Movie M ON MP.id = M.mpid
                     WHERE L.uemail = :findMovieLikedEmail");
-                    // Bind the name parameter
+                    // Bind the user email parameter
                     $stmt->bindParam(':findMovieLikedEmail', $_POST['findMovieLikedEmail']);
                     $headers = ["movie name", "rating", "production", "budget"];
                     $isMovie = true;
@@ -372,7 +372,7 @@
                     FROM MotionPicture MP 
                     JOIN Location L ON MP.id = L.mpid 
                     WHERE L.country = :searchMPLocation");
-                    // Bind the name parameter
+                    // Bind the location parameter
                     $stmt->bindParam(':searchMPLocation', $_POST['searchMPLocation']);
                     $headers = ["motion picture name"];
                     $isMovie = true;
@@ -390,12 +390,29 @@
                     JOIN MotionPicture MP ON S.mpid = MP.id 
                     JOIN Location L ON S.mpid = L.mpid 
                     WHERE R.role_name = 'Director' AND L.zip = :listDirectorSeriesZip");
-                    // Bind the name parameter
+                    // Bind the zip code parameter
                     $stmt->bindParam(':listDirectorSeriesZip', $_POST['listDirectorSeriesZip']);
                     $headers = ["director name", "TV series name"];
                     $isMovie = true;
                 }else{
                     echo "Zip Code is missing.";
+                }
+            // Query 6
+            }elseif (isset($_POST['findPeopleKAwardsButton'])){
+                // Check if the given k value is available
+                if (isset($_POST['findPeopleKAwards']) && !empty($_POST['findPeopleKAwards'])){
+                    $stmt = $conn->prepare("SELECT P.name AS person_name, MP.name AS motion_picture_name, A.award_year, COUNT(*) AS award_count 
+                    FROM People P 
+                    JOIN Award A ON P.id = A.pid 
+                    JOIN MotionPicture MP ON A.mpid = MP.id 
+                    GROUP BY P.id, MP.id, A.award_year
+                    HAVING COUNT(*) > :findPeopleKAwards");
+                    // Bind the k value parameter
+                    $stmt->bindParam(':findPeopleKAwards', $_POST['findPeopleKAwards']);
+                    $headers = ["person name", "motion picture name", "award year", "award count"];
+                    $isMovie = true;
+                }else{
+                    echo "k Value is missing.";
                 }
             // Query 1
             }elseif ($action == 'viewAllMotionPictures') {
