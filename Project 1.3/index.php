@@ -53,14 +53,14 @@
 
         <div class="container">
             <div class="row">
-                <div class="col-md-6">
+                <div class="col-md-3">
                     <!-- Dropdown menu for view all tables -->
                     <div class="card" style="width: 100%;">
                         <div class="card-body">
                             <h5 class="card-title">View All Tables</h5>
                             <div class="dropdown">
                                 <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    All Tables Dropdown
+                                    All Tables
                                 </button>
                                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                     <a class="dropdown-item" onclick="location.href='?action=viewAllMotionPictures'">View All Motion Pictures</a>
@@ -78,14 +78,15 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-6">
-                    <!-- Section for All Other Queries -->
+
+                <div class="col-md-4">
+                    <!-- Section for All Queries Need Parameters -->
                     <div class="card" style="width: 100%;">
                         <div class="card-body">
-                            <h5 class="card-title">All Other Queries</h5>
+                            <h5 class="card-title">All Queries Need Parameters</h5>
                             <div class="dropdown">
                                 <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    All Other Queries Dropdown
+                                    All Queries Need Parameters
                                 </button>
                                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                     <a class="dropdown-item" href="#" data-toggle="modal" data-target="#modalSearchMovieName">Search Movies by Names</a>
@@ -93,6 +94,23 @@
                                     <a class="dropdown-item" href="#" data-toggle="modal" data-target="#modalSearchMPLocation">Search Motion Pictures by Shooting Location Country</a>
                                     <a class="dropdown-item" href="#" data-toggle="modal" data-target="#modalListDirectorSeriesZip">List directors who have directed TV series in a zip code</a>
                                     <a class="dropdown-item" href="#" data-toggle="modal" data-target="#modalFindPeopleKAwards">Find people who have received more than k awards for a single motion picture in the same year</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-5">
+                    <!-- Section for All Queries Without Parameters -->
+                    <div class="card" style="width: 100%;">
+                        <div class="card-body">
+                            <h5 class="card-title">All Queries Without Parameters</h5>
+                            <div class="dropdown">
+                                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    All Queries Without Parameters
+                                </button>
+                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                    <a class="dropdown-item" onclick="location.href='?action=findYoungestOldestActors'">Find the youngest and oldest actors to win at least one award</a>
                                 </div>
                             </div>
                         </div>
