@@ -101,23 +101,23 @@
             </div>
         </div>
 
-        <!-- Form for Search Motion Picture by Name -->
-        <div class="modal fade" id="modalSearchMPName" tabindex="-1" role="dialog" aria-labelledby="modalSearchMPNameLabel" aria-hidden="true">
+        <!-- Form for Search Movie by Name -->
+        <div class="modal fade" id="modalSearchMovieName" tabindex="-1" role="dialog" aria-labelledby="modalSearchMovieNameLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
-                <form id="searchMPNameForm" method="post">
+                <form id="searchMovieNameForm" method="post">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="modalSearchMPNameLabel">Search Motion Picture by Name</h5>
+                            <h5 class="modal-title" id="modalSearchMovieNameLabel">Search Movies by Names</h5>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
                         <div class="modal-body">
-                            <input type="text" class="form-control" placeholder="Enter motion picture name" name="searchMPName" id="searchMPName">
+                            <input type="text" class="form-control" placeholder="Enter movie name" name="searchMovieName" id="searchMovieName">
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <button class="btn btn-primary" type="submit" name="searchMPNameButton" id="searchMPNameButton">Search</button>
+                            <button class="btn btn-primary" type="submit" name="searchMovieNameButton" id="searchMovieNameButton">Search</button>
                         </div>
                     </div>
                 </form>
