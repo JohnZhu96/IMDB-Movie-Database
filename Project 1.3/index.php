@@ -89,6 +89,7 @@
                                 </button>
                                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                     <a class="dropdown-item" href="#" data-toggle="modal" data-target="#modalSearchMPName">Search Motion Pictures by Names</a>
+                                    <a class="dropdown-item" href="#" data-toggle="modal" data-target="#modalFindMovieLiked">Find Movies that are Liked by a User Email</a>
                                 </div>
                             </div>
                         </div>
@@ -103,7 +104,7 @@
                 <form id="searchMPNameForm" method="post">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="modalItem1Label">Search Motion Picture by Name</h5>
+                            <h5 class="modal-title" id="modalSearchMPNameLabel">Search Motion Picture by Name</h5>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
@@ -120,20 +121,31 @@
             </div>
         </div>
 
-
-        <!-- <div class="container">
-            <form id="searchMPNameForm" method="post">
-                <div class="card" style="width: 60rem;">
-                    <div class="card-body">
-                        <h5 class="card-title">Search Motion Picture by Name</h5>
-                        <input type="text" class="form-control" placeholder="Enter motion picture name" name="searchMPName" id="searchMPName">
-                        <div class="input-group-append">
-                            <button class="btn btn-outline-secondary" type="submit" name="searchMPNameButton" id="searchMPNameButton">Search</button>
+        <!-- Form for Find Movies that are Liked by a User Email -->
+        <div class="modal fade" id="modalFindMovieLiked" tabindex="-1" role="dialog" aria-labelledby="modalFindMovieLikedLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <form id="findMovieLikedForm" method="post">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="modalFindMovieLikedLabel">Find Movies that are Liked by a User Email</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <input type="text" class="form-control" placeholder="Enter user email" name="findMovieLikedEmail" id="findMovieLikedEmail">
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button class="btn btn-primary" type="submit" name="findMovieLikedEmailButton" id="findMovieLikedEmailButton">Search</button>
                         </div>
                     </div>
-                </div>
-            </form>
-        </div> -->
+                </form>
+            </div>
+        </div>
+
+
+        
     </div>
     <div class="container">
         <h1>Results</h1>
@@ -257,19 +269,34 @@
                     $stmt = $conn->prepare("SELECT name, rating, production, budget FROM MotionPicture WHERE name = :searchMPName");
                     // Bind the name parameter
                     $stmt->bindParam(':searchMPName', $_POST['searchMPName']);
-                    $headers = ["name", "rating", "production", "budget"];
+                    $headers = ["movie name", "rating", "production", "budget"];
                     $isMovie = true;
                 }else{
                     echo "Movie Picture Name is missing.";
                 }
 
+            }elseif (isset($_POST['findMovieLikedEmailButton'])){
+                // Check if the user email is available
+                if (isset($_POST['findMovieLikedEmail']) && !empty($_POST['findMovieLikedEmail'])){
+                    $stmt = $conn->prepare("SELECT name, rating, production, budget 
+                    FROM MotionPicture MP
+                    JOIN Likes L ON MP.id = L.mpid
+                    WHERE L.uemail = :findMovieLikedEmail");
+                    // Bind the name parameter
+                    $stmt->bindParam(':findMovieLikedEmail', $_POST['findMovieLikedEmail']);
+                    $headers = ["movie name", "rating", "production", "budget"];
+                    $isMovie = true;
+                }else{
+                    echo "User Email is missing.";
+                }
+
             }elseif ($action == 'viewAllMotionPictures') {
                 $stmt = $conn->prepare("SELECT * FROM MotionPicture");
-                $headers = ["id", "name", "rating", "production", "budget"];
+                $headers = ["id", "movie name", "rating", "production", "budget"];
                 $isMovie = true;
             } elseif ($action == 'viewAllUsers') {
                 $stmt = $conn->prepare("SELECT * FROM User");
-                $headers = ["email", "name", "age"];
+                $headers = ["email", "user name", "age"];
                 $isMovie = false;
             } elseif ($action == 'viewAllLikes') {
                 $stmt = $conn->prepare("SELECT * FROM Likes");
@@ -285,7 +312,7 @@
                 $isMovie = true;
             } elseif ($action == 'viewAllPeople') {
                 $stmt = $conn->prepare("SELECT * FROM People");
-                $headers = ["id", "name", "nationality", "dob", "gender"];
+                $headers = ["id", "people name", "nationality", "dob", "gender"];
                 $isMovie = false;
             } elseif ($action == 'viewAllRoles') {
                 $stmt = $conn->prepare("SELECT * FROM Role");
