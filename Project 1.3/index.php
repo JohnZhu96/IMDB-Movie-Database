@@ -311,18 +311,19 @@
                     echo "Email or Movie ID is missing.";
                 }
             // Query 2
-            } elseif (isset($_POST['searchMPNameButton'])){
-                // Check if the Movie Picture name is available
-                if (isset($_POST['searchMPName']) && !empty($_POST['searchMPName'])){
+            } elseif (isset($_POST['searchMovieNameButton'])){
+                // Check if the Movie name is available
+                if (isset($_POST['searchMovieName']) && !empty($_POST['searchMovieName'])){
                     $stmt = $conn->prepare("SELECT name, rating, production, budget 
-                    FROM MotionPicture 
-                    WHERE name = :searchMPName");
+                    FROM MotionPicture MP
+                    JOIN Movie M ON MP.id = M.mpid 
+                    WHERE name = :searchMovieName");
                     // Bind the name parameter
-                    $stmt->bindParam(':searchMPName', $_POST['searchMPName']);
+                    $stmt->bindParam(':searchMovieName', $_POST['searchMovieName']);
                     $headers = ["movie name", "rating", "production", "budget"];
                     $isMovie = true;
                 }else{
-                    echo "Movie Picture Name is missing.";
+                    echo "Movie Name is missing.";
                 }
             // Query 3
             }elseif (isset($_POST['findMovieLikedEmailButton'])){
@@ -342,7 +343,7 @@
                 }
             // Query 4
             }elseif (isset($_POST['searchMPLocationButton'])){
-                // Check if the Movie Picture shooting location country is available
+                // Check if the Motion Picture shooting location country is available
                 if (isset($_POST['searchMPLocation']) && !empty($_POST['searchMPLocation'])){
                     $stmt = $conn->prepare("SELECT DISTINCT name 
                     FROM MotionPicture MP 
@@ -353,7 +354,7 @@
                     $headers = ["motion picture name"];
                     $isMovie = true;
                 }else{
-                    echo "Movie Picture Shooting Location Country is missing.";
+                    echo "Motion Picture Shooting Location Country is missing.";
                 }
             // Query 5
             }elseif (isset($_POST['listDirectorSeriesZipButton'])){
