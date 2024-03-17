@@ -20,7 +20,7 @@
                 <div class="input-group mb-3">
                     <input type="text" class="form-control" placeholder="Enter minimum age" name="inputAge" id="inputAge">
                     <div class="input-group-append">
-                        <button class="btn btn-outline-secondary" type="submit" name="submitted" id="button-addon2">Query</button>
+                        <button class="btn btn-outline-secondary" type="submit" name="minAge" id="button-addon2">Query</button>
                     </div>
                 </div>
             </form>
@@ -50,7 +50,7 @@
                 </div>
             </form>
         </div>
-
+        <!-- Dropdown menu for view all tables -->
         <div class="container">
             <div class="card" style="width: 18rem;">
                 <div class="card-body">
@@ -75,18 +75,60 @@
                 </div>
             </div>
         </div>
-
+        <!-- Section for All Other Queries -->
         <div class="container">
-            <div class="card" style="width: 60rem;">
+            <div class="card" style="width: 18rem;">
                 <div class="card-body">
-                    <h5 class="card-title">Search Motion Picture</h5>
-                    <input type="text" class="form-control" placeholder="Enter motion picture name" name="searchMPName" id="searchMPText">
-                    <div class="input-group-append">
-                        <button class="btn btn-outline-secondary" type="submit" name="searchMP" id="searchMPButton">Search</button>
+                    <h5 class="card-title">All Other Queries</h5>
+                    <div class="dropdown">
+                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            All Other Queries Dropdown
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <a class="dropdown-item" href="#" data-toggle="modal" data-target="#modalSearchMPName">Search Motion Pictures by Names</a>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
+
+        <!-- Form for Search Motion Picture by Name -->
+        <div class="modal fade" id="modalSearchMPName" tabindex="-1" role="dialog" aria-labelledby="modalSearchMPNameLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <form id="searchMPNameForm" method="post">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="modalItem1Label">Search Motion Picture by Name</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <input type="text" class="form-control" placeholder="Enter motion picture name" name="searchMPName" id="searchMPName">
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button class="btn btn-primary" type="submit" name="searchMPNameButton" id="searchMPNameButton">Search</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+
+        <!-- <div class="container">
+            <form id="searchMPNameForm" method="post">
+                <div class="card" style="width: 60rem;">
+                    <div class="card-body">
+                        <h5 class="card-title">Search Motion Picture by Name</h5>
+                        <input type="text" class="form-control" placeholder="Enter motion picture name" name="searchMPName" id="searchMPName">
+                        <div class="input-group-append">
+                            <button class="btn btn-outline-secondary" type="submit" name="searchMPNameButton" id="searchMPNameButton">Search</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div> -->
     </div>
     <div class="container">
         <h1>Results</h1>
@@ -129,12 +171,13 @@
             $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
             $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-            if (isset($_POST['submitted'])) {
+            if (isset($_POST['minAge'])) {
                 $ageLimit = $_POST["inputAge"];
                 $stmt = $conn->prepare("SELECT id, first_name, last_name FROM guests WHERE age >= :ageLimit");
                 $stmt->bindParam(':ageLimit', $ageLimit, PDO::PARAM_INT);
                 $headers = ["ID", "First Name", "Last Name"];
                 $isMovie = false;
+
             }elseif (isset($_POST['sign_up'])) {
                 // Check if the user information is available
                 if (isset($_POST['email']) && !empty($_POST['email']) && isset($_POST['name']) && !empty($_POST['name']) && isset($_POST['age']) && !empty($_POST['age'])) {
@@ -203,7 +246,19 @@
                     echo "Email or Movie ID is missing.";
                 }
                 
-            } elseif ($action == 'viewAllMotionPictures') {
+            } elseif (isset($_POST['searchMPNameButton'])){
+                // Check if the Movie Picture name is available
+                if (isset($_POST['searchMPName']) && !empty($_POST['searchMPName'])){
+                    $stmt = $conn->prepare("SELECT name, rating, production, budget FROM MotionPicture WHERE name = :searchMPName");
+                    // Bind the name parameter
+                    $stmt->bindParam(':searchMPName', $_POST['searchMPName']);
+                    $headers = ["name", "rating", "production", "budget"];
+                    $isMovie = true;
+                }else{
+                    echo "Movie Picture Name is missing.";
+                }
+
+            }elseif ($action == 'viewAllMotionPictures') {
                 $stmt = $conn->prepare("SELECT * FROM MotionPicture");
                 $headers = ["id", "name", "rating", "production", "budget"];
                 $isMovie = true;
