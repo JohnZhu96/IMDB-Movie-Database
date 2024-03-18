@@ -435,13 +435,13 @@
             // Query 7
             }elseif ($action == 'findYoungestOldestActors') {
                 $stmt = $conn->prepare("SELECT P.name AS actor_name, 
-                (YEAR(A.award_year) - YEAR(P.dob)) - (RIGHT(A.award_year, 5) < RIGHT(P.dob, 5)) AS age_at_award 
+                (A.award_year - YEAR(P.dob)) AS age_at_award 
                 FROM People P 
                 JOIN Role R ON P.id = R.pid 
                 JOIN Award A ON P.id = A.pid
                 WHERE R.role_name = 'Actor' 
                 HAVING age_at_award = (SELECT age_at_award 
-                                        FROM (SELECT (YEAR(A.award_year) - YEAR(P.dob)) - (RIGHT(A.award_year, 5) < RIGHT(P.dob, 5)) AS age_at_award
+                                        FROM (SELECT (A.award_year - YEAR(P.dob)) AS age_at_award
                                         FROM People P
                                         JOIN Role R ON P.id = R.pid 
                                         JOIN Award A ON P.id = A.pid 
@@ -450,7 +450,7 @@
                                         LIMIT 1) AS youngest_age)
                         OR 
                         age_at_award = (SELECT age_at_award 
-                                        FROM (SELECT (YEAR(A.award_year) - YEAR(P.dob)) - (RIGHT(A.award_year, 5) < RIGHT(P.dob, 5)) AS age_at_award 
+                                        FROM (SELECT (A.award_year - YEAR(P.dob)) AS age_at_award 
                                         FROM People P 
                                         JOIN Role R ON P.id = R.pid 
                                         JOIN Award A ON P.id = A.pid 
