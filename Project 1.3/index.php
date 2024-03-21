@@ -591,19 +591,21 @@
                 $headers = ["movie name", "rating"];
                 $isMovie = true;
             // Query 11
-            } elseif(isset($_POST['findUSAProducerButton'])){
+            } elseif(isset($_POST['findMovieLikesAgeButton'])){
                 // Check if the given X and Y value is available
-                if (isset($_POST['findUSAProducerX']) && $_POST['findUSAProducerX'] !== '' && isset($_POST['findUSAProducerY']) && $_POST['findUSAProducerY'] !== ''){
-                    $stmt = $conn->prepare("SELECT P.name AS producer_name, MP.name AS movie_name, M.boxoffice_collection, MP.budget
-                    FROM People P 
-                    JOIN Role R ON P.id = R.pid 
-                    JOIN MotionPicture MP ON R.mpid = MP.id 
+                if (isset($_POST['findMovieLikesAgeX']) && $_POST['findMovieLikesAgeX'] !== '' && isset($_POST['findMovieLikesAgeY']) && $_POST['findMovieLikesAgeY'] !== ''){
+                    $stmt = $conn->prepare("SELECT MP.name, COUNT(L.uemail) 
+                    FROM MotionPicture MP
                     JOIN Movie M ON MP.id = M.mpid 
-                    WHERE P.nationality = 'USA' AND M.boxoffice_collection >= :findUSAProducerX AND MP.budget <= :findUSAProducerY AND R.role_name = 'Producer'");
+                    JOIN Likes L ON MP.id = L.mpid 
+                    JOIN User U ON L.uemail = U.email 
+                    WHERE U.age < :findMovieLikesAgeY 
+                    GROUP BY MP.id 
+                    HAVING COUNT(L.uemail) > :findMovieLikesAgeX");
                     // Bind the X and Y value parameter
-                    $stmt->bindParam(':findUSAProducerX', $_POST['findUSAProducerX']);
-                    $stmt->bindParam(':findUSAProducerY', $_POST['findUSAProducerY']);
-                    $headers = ["producer name", "movie name", "box office collection", "budget"];
+                    $stmt->bindParam(':findMovieLikesAgeX', $_POST['findMovieLikesAgeX']);
+                    $stmt->bindParam(':findMovieLikesAgeY', $_POST['findMovieLikesAgeY']);
+                    $headers = ["movie name", "number of likes"];
                     $isMovie = true;
                 }else{
                     echo "X or Y Value is missing.";
