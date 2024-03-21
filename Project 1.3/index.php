@@ -548,8 +548,25 @@
                 }else{
                     echo "X Value is missing.";
                 }
+            // Query 10
+            }elseif ($action == 'findTop2ThrillerMoviesBoston') {
+                $stmt = $conn->prepare("SELECT MP.name AS movie_name, MP.rating 
+                FROM MotionPicture MP
+                JOIN Movie M ON MP.id = M.mpid 
+                JOIN Genre G ON MP.id = G.mpid 
+                JOIN Location L ON MP.id = L.mpid 
+                WHERE G.genre_name = 'Thriller' AND L.city = 'Boston' 
+                    AND NOT EXISTS (
+                        SELECT city 
+                        FROM Location 
+                        WHERE mpid = MP.id 
+                        AND city != 'Boston') 
+                ORDER BY MP.rating DESC 
+                LIMIT 2");
+                $headers = ["movie name", "rating"];
+                $isMovie = true;
             // Query 12
-            }elseif ($action == 'findActorsInBothProductions') {
+            } elseif ($action == 'findActorsInBothProductions') {
                 $stmt = $conn->prepare("SELECT P.name AS actor_name, MP.name AS motion_picture_name
                                         FROM People P
                                         JOIN Role R ON P.id = R.pid
