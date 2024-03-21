@@ -529,6 +529,24 @@
                 }else{
                     echo "X or Y Value is missing.";
                 }
+            // Query 9
+            }elseif (isset($_POST['listPeopleMultipleRolesButton'])){
+                // Check if the given X value is available
+                if (isset($_POST['listPeopleMultipleRolesX']) && $_POST['listPeopleMultipleRolesX'] !== ''){
+                    $stmt = $conn->prepare("SELECT P.name AS person_name, MP.name AS motion_picture_name, COUNT(*) AS role_count 
+                    FROM People P 
+                    JOIN Role R ON P.id = R.pid 
+                    JOIN MotionPicture MP ON R.mpid = MP.id 
+                    WHERE MP.rating > :listPeopleMultipleRolesX 
+                    GROUP BY P.id, MP.id 
+                    HAVING COUNT(*) > 1");
+                    // Bind the X value parameter
+                    $stmt->bindParam(':listPeopleMultipleRolesX', $_POST['listPeopleMultipleRolesX']);
+                    $headers = ["person name", "motion picture name", "number of roles"];
+                    $isMovie = true;
+                }else{
+                    echo "X Value is missing.";
+                }
             // Query 12
             }elseif ($action == 'findActorsInBothProductions') {
                 $stmt = $conn->prepare("SELECT P.name AS actor_name, MP.name AS motion_picture_name
