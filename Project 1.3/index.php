@@ -96,6 +96,7 @@
                                     <a class="dropdown-item" href="#" data-toggle="modal" data-target="#modalFindPeopleKAwards">Q6: Find people who have received more than k awards for a single motion picture in the same year</a>
                                     <a class="dropdown-item" href="#" data-toggle="modal" data-target="#modalFindUSAProducer">Q8: Find American Producers who had box office collection >= X with budget <= Y</a>
                                     <a class="dropdown-item" href="#" data-toggle="modal" data-target="#modalListPeopleMultipleRoles">Q9: List people who played multiple roles in a motion picture where rating is more than X</a>
+                                    <a class="dropdown-item" href="#" data-toggle="modal" data-target="#modalFindMovieXLikesYAge">Q11: Find movies with more than X likes by users of age less than Y</a>
                                 </div>
                             </div>
                         </div>
