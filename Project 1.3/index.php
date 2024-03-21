@@ -94,6 +94,7 @@
                                     <a class="dropdown-item" href="#" data-toggle="modal" data-target="#modalSearchMPLocation">Search Motion Pictures by Shooting Location Country</a>
                                     <a class="dropdown-item" href="#" data-toggle="modal" data-target="#modalListDirectorSeriesZip">List directors who have directed TV series in a zip code</a>
                                     <a class="dropdown-item" href="#" data-toggle="modal" data-target="#modalFindPeopleKAwards">Find people who have received more than k awards for a single motion picture in the same year</a>
+                                    <a class="dropdown-item" href="#" data-toggle="modal" data-target="#modalFindUSAProducer">Find American Producers who had box office collection >= X with budget <= Y</a>
                                 </div>
                             </div>
                         </div>
@@ -244,7 +245,7 @@
                 <form id="findUSAProducerForm" method="post">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="modalFindUSAProducerLabel">Find American Producers who had a box office collection of more than or equal to X with a budget less than or equal to Y</h5>
+                            <h5 class="modal-title" id="modalFindUSAProducerLabel">Find American Producers who had box office collection >= X with budget <= Y</h5>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
