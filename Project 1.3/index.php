@@ -113,6 +113,7 @@
                                 </button>
                                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                     <a class="dropdown-item" onclick="location.href='?action=findYoungestOldestActors'">Q7: Find the youngest and oldest actors to win at least one award</a>
+                                    <a class="dropdown-item" onclick="location.href='?action=findTop2ThrillerMoviesBoston'">Q10: Find top 2 rates thriller movies that were shot exclusively in Boston</a>
                                     <a class="dropdown-item" onclick="location.href='?action=findActorsInBothProductions'">Q12: Find the actors who have played a role in both Marvel and Warner Bros</a>
                                     <a class="dropdown-item" onclick="location.href='?action=findMoviesWithHigherRatingThanAverageComedy'">Q13: Find the motion pictures that have a higher rating than the average rating of all comedy</a>
                                     <a class="dropdown-item" onclick="location.href='?action=findTop5MoviesWithMostPeople'">Q14: Find the top 5 movies with the highest number of people playing a role in that movie</a>
