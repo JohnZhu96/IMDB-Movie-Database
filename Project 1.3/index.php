@@ -463,8 +463,7 @@
                 }
             // Query 7
             }elseif ($action == 'findYoungestOldestActors') {
-                $stmt = $conn->prepare("SELECT P.name AS actor_name, 
-                (A.award_year - YEAR(P.dob)) AS age_at_award 
+                $stmt = $conn->prepare("SELECT P.name AS actor_name, (A.award_year - YEAR(P.dob)) AS age_at_award 
                 FROM People P 
                 JOIN Role R ON P.id = R.pid 
                 JOIN Award A ON P.id = A.pid
@@ -488,8 +487,26 @@
                                         LIMIT 1) AS oldest_age)");
                 $headers = ["actor name", "age (received the award)"];
                 $isMovie = true;
+            // Query 8
+            }elseif (isset($_POST['findUSAProducerButton'])){
+                // Check if the given X and Y value is available
+                if (isset($_POST['findUSAProducerX']) && $_POST['findUSAProducerX'] !== '' && isset($_POST['findUSAProducerY']) && $_POST['findUSAProducerY'] !== ''){
+                    $stmt = $conn->prepare("SELECT P.name AS producer_name, MP.name AS movie_name, M.boxoffice_collection, MP.budget
+                    FROM People P 
+                    JOIN Role R ON P.id = R.pid 
+                    JOIN MotionPicture MP ON R.mpid = MP.id 
+                    JOIN Movie M ON MP.id = M.mpid 
+                    WHERE P.nationality = 'USA' AND M.boxoffice_collection >= :findUSAProducerX AND MP.budget <= :findUSAProducerY");
+                    // Bind the X and Y value parameter
+                    $stmt->bindParam(':findUSAProducerX', $_POST['findUSAProducerX']);
+                    $stmt->bindParam(':findUSAProducerY', $_POST['findUSAProducerY']);
+                    $headers = ["producer name", "movie name", "box office collection", "budget"];
+                    $isMovie = true;
+                }else{
+                    echo "X or Y Value is missing.";
+                }
             // Query 12
-            } elseif ($action == 'findActorsInBothProductions') {
+            }elseif ($action == 'findActorsInBothProductions') {
                 $stmt = $conn->prepare("SELECT P.name AS actor_name, MP.name AS motion_picture_name
                                         FROM People P
                                         JOIN Role R ON P.id = R.pid
