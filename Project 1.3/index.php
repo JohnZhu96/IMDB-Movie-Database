@@ -111,6 +111,10 @@
                                 </button>
                                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                     <a class="dropdown-item" onclick="location.href='?action=findYoungestOldestActors'">Find the youngest and oldest actors to win at least one award</a>
+                                    <a class="dropdown-item" onclick="location.href='?action=findActorsInBothProductions'">Find the actors who have played a role in both Marvel and Warner Bros</a>
+                                    <a class="dropdown-item" onclick="location.href='?action=findMoviesWithHigherRatingThanAverageComedy'">Find the motion pictures that have a higher rating than the average rating of all comedy</a>
+                                    <a class="dropdown-item" onclick="location.href='?action=findTop5MoviesWithMostPeople'">Find the top 5 movies with the highest number of people playing a role in that movie</a>
+                                    <a class="dropdown-item" onclick="location.href='?action=findActorsWithSameBirthday'">Find actors who share the same birthday. </a>
                                 </div>
                             </div>
                         </div>
@@ -458,6 +462,50 @@
                                         ORDER BY age_at_award DESC 
                                         LIMIT 1) AS oldest_age)");
                 $headers = ["actor name", "age (received the award)"];
+                $isMovie = true;
+            // Query 12
+            } elseif ($action == 'findActorsInBothProductions') {
+                $stmt = $conn->prepare("SELECT P.name AS actor_name, MP.name AS motion_picture_name
+                                        FROM People P
+                                        JOIN Role R ON P.id = R.pid
+                                        JOIN MotionPicture MP ON R.mpid = MP.id
+                                        WHERE R.role_name = 'Actor' AND MP.production IN ('Marvel', 'Warner Bros')
+                                        GROUP BY P.name
+                                        HAVING COUNT(DISTINCT MP.production) = 2");
+                $headers = ["actor name", "motion picture name"];
+                $isMovie = true;
+            // Query 13
+            } elseif ($action == 'findMoviesWithHigherRatingThanAverageComedy') {
+                $stmt = $conn->prepare("SELECT MP.name AS motion_picture_name, MP.rating AS motion_picture_rating
+                                        FROM MotionPicture MP
+                                        WHERE MP.rating > (SELECT AVG(MP2.rating) 
+                                                           FROM MotionPicture MP2 
+                                                           JOIN Genre G ON MP2.id = G.mpid
+                                                           WHERE G.genre_name = 'Comedy')
+                                        ORDER BY MP.rating DESC");
+                $headers = ["motion picture name", "motion picture rating"];
+                $isMovie = true;
+            // Query 14
+            } elseif ($action == 'findTop5MoviesWithMostPeople') {
+                $stmt = $conn->prepare("SELECT MP.name AS movie_name, COUNT(DISTINCT P.id) AS people_count, COUNT(R.role_name) AS role_count
+                                        FROM MotionPicture MP
+                                        JOIN Role R ON MP.id = R.mpid
+                                        JOIN People P ON R.pid = P.id
+                                        GROUP BY MP.name
+                                        ORDER BY people_count DESC, role_count DESC
+                                        LIMIT 5");
+                $headers = ["movie name", "people count", "role count"];
+                $isMovie = true;
+            // Query 15
+            } elseif ($action == 'findActorsWithSameBirthday') {
+                $stmt = $conn->prepare("SELECT P1.name AS actor_1, P2.name AS actor_2, P1.dob AS common_birthday
+                                        FROM People P1
+                                        JOIN People P2 ON P1.dob = P2.dob AND P1.id < P2.id
+                                        JOIN Role R1 ON P1.id = R1.pid
+                                        JOIN Role R2 ON P2.id = R2.pid
+                                        WHERE R1.role_name = 'Actor' AND R2.role_name = 'Actor'
+                                        GROUP BY common_birthday, actor_1, actor_2");
+                $headers = ["actor 1", "actor 2", "common birthday"];
                 $isMovie = true;
             // Query 1
             }elseif ($action == 'viewAllMotionPictures') {
