@@ -227,7 +227,7 @@
                             </button>
                         </div>
                         <div class="modal-body">
-                            <input type="text" class="form-control" placeholder="Enter value k" name="findPeopleKAwards" id="findPeopleKAwards">
+                            <input type="text" class="form-control" placeholder="Enter minimum awards: k" name="findPeopleKAwards" id="findPeopleKAwards">
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -236,7 +236,31 @@
                     </div>
                 </form>
             </div>
-        </div>    
+        </div>
+        
+        <!-- Form for Find American Producers who had a box office collection of more than or equal to X with a budget less than or equal to Y -->
+        <div class="modal fade" id="modalFindUSAProducer" tabindex="-1" role="dialog" aria-labelledby="modalFindUSAProducerLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <form id="findUSAProducerForm" method="post">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="modalFindUSAProducerLabel">Find American Producers who had a box office collection of more than or equal to X with a budget less than or equal to Y</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <input type="text" class="form-control" placeholder="Enter minimum box office collection: X" name="findUSAProducerX" id="findUSAProducerX">
+                            <input type="text" class="form-control" placeholder="Enter maximum budget: Y" name="findUSAProducerY" id="findUSAProducerY">
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button class="btn btn-primary" type="submit" name="findUSAProducerButton" id="findUSAProducerButton">Search</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
     </div>
 
 
