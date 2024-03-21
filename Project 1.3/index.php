@@ -57,7 +57,7 @@
                     <!-- Dropdown menu for view all tables -->
                     <div class="card" style="width: 100%;">
                         <div class="card-body">
-                            <h5 class="card-title">View All Tables</h5>
+                            <h5 class="card-title">Q1: View All Tables</h5>
                             <div class="dropdown">
                                 <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     All Tables
@@ -89,12 +89,12 @@
                                     All Queries Need Parameters
                                 </button>
                                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                    <a class="dropdown-item" href="#" data-toggle="modal" data-target="#modalSearchMovieName">Search Movies by Names</a>
-                                    <a class="dropdown-item" href="#" data-toggle="modal" data-target="#modalFindMovieLiked">Find Movies that are Liked by a User Email</a>
-                                    <a class="dropdown-item" href="#" data-toggle="modal" data-target="#modalSearchMPLocation">Search Motion Pictures by Shooting Location Country</a>
-                                    <a class="dropdown-item" href="#" data-toggle="modal" data-target="#modalListDirectorSeriesZip">List directors who have directed TV series in a zip code</a>
-                                    <a class="dropdown-item" href="#" data-toggle="modal" data-target="#modalFindPeopleKAwards">Find people who have received more than k awards for a single motion picture in the same year</a>
-                                    <a class="dropdown-item" href="#" data-toggle="modal" data-target="#modalFindUSAProducer">Find American Producers who had box office collection >= X with budget <= Y</a>
+                                    <a class="dropdown-item" href="#" data-toggle="modal" data-target="#modalSearchMovieName">Q2: Search Movies by Names</a>
+                                    <a class="dropdown-item" href="#" data-toggle="modal" data-target="#modalFindMovieLiked">Q3: Find Movies that are Liked by a User Email</a>
+                                    <a class="dropdown-item" href="#" data-toggle="modal" data-target="#modalSearchMPLocation">Q4: Search Motion Pictures by Shooting Location Country</a>
+                                    <a class="dropdown-item" href="#" data-toggle="modal" data-target="#modalListDirectorSeriesZip">Q5: List directors who have directed TV series in a zip code</a>
+                                    <a class="dropdown-item" href="#" data-toggle="modal" data-target="#modalFindPeopleKAwards">Q6: Find people who have received more than k awards for a single motion picture in the same year</a>
+                                    <a class="dropdown-item" href="#" data-toggle="modal" data-target="#modalFindUSAProducer">Q8: Find American Producers who had box office collection >= X with budget <= Y</a>
                                 </div>
                             </div>
                         </div>
@@ -111,11 +111,11 @@
                                     All Queries Without Parameters
                                 </button>
                                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                    <a class="dropdown-item" onclick="location.href='?action=findYoungestOldestActors'">Find the youngest and oldest actors to win at least one award</a>
-                                    <a class="dropdown-item" onclick="location.href='?action=findActorsInBothProductions'">Find the actors who have played a role in both Marvel and Warner Bros</a>
-                                    <a class="dropdown-item" onclick="location.href='?action=findMoviesWithHigherRatingThanAverageComedy'">Find the motion pictures that have a higher rating than the average rating of all comedy</a>
-                                    <a class="dropdown-item" onclick="location.href='?action=findTop5MoviesWithMostPeople'">Find the top 5 movies with the highest number of people playing a role in that movie</a>
-                                    <a class="dropdown-item" onclick="location.href='?action=findActorsWithSameBirthday'">Find actors who share the same birthday. </a>
+                                    <a class="dropdown-item" onclick="location.href='?action=findYoungestOldestActors'">Q7: Find the youngest and oldest actors to win at least one award</a>
+                                    <a class="dropdown-item" onclick="location.href='?action=findActorsInBothProductions'">Q12: Find the actors who have played a role in both Marvel and Warner Bros</a>
+                                    <a class="dropdown-item" onclick="location.href='?action=findMoviesWithHigherRatingThanAverageComedy'">Q13: Find the motion pictures that have a higher rating than the average rating of all comedy</a>
+                                    <a class="dropdown-item" onclick="location.href='?action=findTop5MoviesWithMostPeople'">Q14: Find the top 5 movies with the highest number of people playing a role in that movie</a>
+                                    <a class="dropdown-item" onclick="location.href='?action=findActorsWithSameBirthday'">Q15: Find actors who share the same birthday. </a>
                                 </div>
                             </div>
                         </div>
