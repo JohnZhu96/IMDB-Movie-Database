@@ -57,7 +57,7 @@
                     <!-- Dropdown menu for view all tables -->
                     <div class="card" style="width: 100%;">
                         <div class="card-body">
-                            <h5 class="card-title">View All Tables</h5>
+                            <h5 class="card-title">Q1: View All Tables</h5>
                             <div class="dropdown">
                                 <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     All Tables
@@ -89,11 +89,14 @@
                                     All Queries Need Parameters
                                 </button>
                                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                    <a class="dropdown-item" href="#" data-toggle="modal" data-target="#modalSearchMovieName">Search Movies by Names</a>
-                                    <a class="dropdown-item" href="#" data-toggle="modal" data-target="#modalFindMovieLiked">Find Movies that are Liked by a User Email</a>
-                                    <a class="dropdown-item" href="#" data-toggle="modal" data-target="#modalSearchMPLocation">Search Motion Pictures by Shooting Location Country</a>
-                                    <a class="dropdown-item" href="#" data-toggle="modal" data-target="#modalListDirectorSeriesZip">List directors who have directed TV series in a zip code</a>
-                                    <a class="dropdown-item" href="#" data-toggle="modal" data-target="#modalFindPeopleKAwards">Find people who have received more than k awards for a single motion picture in the same year</a>
+                                    <a class="dropdown-item" href="#" data-toggle="modal" data-target="#modalSearchMovieName">Q2: Search Movies by Names</a>
+                                    <a class="dropdown-item" href="#" data-toggle="modal" data-target="#modalFindMovieLiked">Q3: Find Movies that are Liked by a User Email</a>
+                                    <a class="dropdown-item" href="#" data-toggle="modal" data-target="#modalSearchMPLocation">Q4: Search Motion Pictures by Shooting Location Country</a>
+                                    <a class="dropdown-item" href="#" data-toggle="modal" data-target="#modalListDirectorSeriesZip">Q5: List directors who have directed TV series in a zip code</a>
+                                    <a class="dropdown-item" href="#" data-toggle="modal" data-target="#modalFindPeopleKAwards">Q6: Find people who have received more than k awards for a single motion picture in the same year</a>
+                                    <a class="dropdown-item" href="#" data-toggle="modal" data-target="#modalFindUSAProducer">Q8: Find American Producers who had box office collection >= X with budget <= Y</a>
+                                    <a class="dropdown-item" href="#" data-toggle="modal" data-target="#modalListPeopleMultipleRoles">Q9: List people who played multiple roles in a motion picture where rating is more than X</a>
+                                    <a class="dropdown-item" href="#" data-toggle="modal" data-target="#modalFindMovieLikesAge">Q11: Find movies with more than X likes by users of age less than Y</a>
                                 </div>
                             </div>
                         </div>
@@ -110,11 +113,12 @@
                                     All Queries Without Parameters
                                 </button>
                                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                    <a class="dropdown-item" onclick="location.href='?action=findYoungestOldestActors'">Find the youngest and oldest actors to win at least one award</a>
-                                    <a class="dropdown-item" onclick="location.href='?action=findActorsInBothProductions'">Find the actors who have played a role in both Marvel and Warner Bros</a>
-                                    <a class="dropdown-item" onclick="location.href='?action=findMoviesWithHigherRatingThanAverageComedy'">Find the motion pictures that have a higher rating than the average rating of all comedy</a>
-                                    <a class="dropdown-item" onclick="location.href='?action=findTop5MoviesWithMostPeople'">Find the top 5 movies with the highest number of people playing a role in that movie</a>
-                                    <a class="dropdown-item" onclick="location.href='?action=findActorsWithSameBirthday'">Find actors who share the same birthday. </a>
+                                    <a class="dropdown-item" onclick="location.href='?action=findYoungestOldestActors'">Q7: Find the youngest and oldest actors to win at least one award</a>
+                                    <a class="dropdown-item" onclick="location.href='?action=findTop2ThrillerMoviesBoston'">Q10: Find top 2 rates thriller movies that were shot exclusively in Boston</a>
+                                    <a class="dropdown-item" onclick="location.href='?action=findActorsInBothProductions'">Q12: Find the actors who have played a role in both Marvel and Warner Bros</a>
+                                    <a class="dropdown-item" onclick="location.href='?action=findMoviesWithHigherRatingThanAverageComedy'">Q13: Find the motion pictures that have a higher rating than the average rating of all comedy</a>
+                                    <a class="dropdown-item" onclick="location.href='?action=findTop5MoviesWithMostPeople'">Q14: Find the top 5 movies with the highest number of people playing a role in that movie</a>
+                                    <a class="dropdown-item" onclick="location.href='?action=findActorsWithSameBirthday'">Q15: Find actors who share the same birthday. </a>
                                 </div>
                             </div>
                         </div>
@@ -227,7 +231,7 @@
                             </button>
                         </div>
                         <div class="modal-body">
-                            <input type="text" class="form-control" placeholder="Enter value k" name="findPeopleKAwards" id="findPeopleKAwards">
+                            <input type="text" class="form-control" placeholder="Enter minimum awards: k" name="findPeopleKAwards" id="findPeopleKAwards">
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -236,7 +240,78 @@
                     </div>
                 </form>
             </div>
-        </div>    
+        </div>
+        
+        <!-- Form for Find American Producers who had a box office collection of more than or equal to X with a budget less than or equal to Y -->
+        <div class="modal fade" id="modalFindUSAProducer" tabindex="-1" role="dialog" aria-labelledby="modalFindUSAProducerLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <form id="findUSAProducerForm" method="post">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="modalFindUSAProducerLabel">Find American Producers who had box office collection >= X with budget <= Y</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <input type="text" class="form-control" placeholder="Enter minimum box office collection: X" name="findUSAProducerX" id="findUSAProducerX">
+                            <input type="text" class="form-control" placeholder="Enter maximum budget: Y" name="findUSAProducerY" id="findUSAProducerY">
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button class="btn btn-primary" type="submit" name="findUSAProducerButton" id="findUSAProducerButton">Search</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Form for List people who played multiple roles in a motion picture where rating is more than X -->
+        <div class="modal fade" id="modalListPeopleMultipleRoles" tabindex="-1" role="dialog" aria-labelledby="modalListPeopleMultipleRolesLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <form id="listPeopleMultipleRolesForm" method="post">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="modalListPeopleMultipleRolesLabel">List people who played multiple roles in a motion picture where rating is more than X</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <input type="text" class="form-control" placeholder="Enter minimum rating: X" name="listPeopleMultipleRolesX" id="listPeopleMultipleRolesX">
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button class="btn btn-primary" type="submit" name="listPeopleMultipleRolesButton" id="listPeopleMultipleRolesButton">Search</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Form for Find movies with more than X likes by users of age less than Y -->
+        <div class="modal fade" id="modalFindMovieLikesAge" tabindex="-1" role="dialog" aria-labelledby="modalFindMovieLikesAgeLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <form id="findMovieLikesAgeForm" method="post">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="modalFindMovieLikesAgeLabel">Find movies with more than X likes by users of age less than Y</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <input type="text" class="form-control" placeholder="Enter minimum likes: X" name="findMovieLikesAgeX" id="findMovieLikesAgeX">
+                            <input type="text" class="form-control" placeholder="Enter maximum age: Y" name="findMovieLikesAgeY" id="findMovieLikesAgeY">
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button class="btn btn-primary" type="submit" name="findMovieLikesAgeButton" id="findMovieLikesAgeButton">Search</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
     </div>
 
 
@@ -438,8 +513,7 @@
                 }
             // Query 7
             }elseif ($action == 'findYoungestOldestActors') {
-                $stmt = $conn->prepare("SELECT P.name AS actor_name, 
-                (A.award_year - YEAR(P.dob)) AS age_at_award 
+                $stmt = $conn->prepare("SELECT P.name AS actor_name, (A.award_year - YEAR(P.dob)) AS age_at_award 
                 FROM People P 
                 JOIN Role R ON P.id = R.pid 
                 JOIN Award A ON P.id = A.pid
@@ -463,8 +537,81 @@
                                         LIMIT 1) AS oldest_age)");
                 $headers = ["actor name", "age (received the award)"];
                 $isMovie = true;
+            // Query 8
+            }elseif (isset($_POST['findUSAProducerButton'])){
+                // Check if the given X and Y value is available
+                if (isset($_POST['findUSAProducerX']) && $_POST['findUSAProducerX'] !== '' && isset($_POST['findUSAProducerY']) && $_POST['findUSAProducerY'] !== ''){
+                    $stmt = $conn->prepare("SELECT P.name AS producer_name, MP.name AS movie_name, M.boxoffice_collection, MP.budget
+                    FROM People P 
+                    JOIN Role R ON P.id = R.pid 
+                    JOIN MotionPicture MP ON R.mpid = MP.id 
+                    JOIN Movie M ON MP.id = M.mpid 
+                    WHERE P.nationality = 'USA' AND M.boxoffice_collection >= :findUSAProducerX AND MP.budget <= :findUSAProducerY AND R.role_name = 'Producer'");
+                    // Bind the X and Y value parameter
+                    $stmt->bindParam(':findUSAProducerX', $_POST['findUSAProducerX']);
+                    $stmt->bindParam(':findUSAProducerY', $_POST['findUSAProducerY']);
+                    $headers = ["producer name", "movie name", "box office collection", "budget"];
+                    $isMovie = true;
+                }else{
+                    echo "X or Y Value is missing.";
+                }
+            // Query 9
+            }elseif (isset($_POST['listPeopleMultipleRolesButton'])){
+                // Check if the given X value is available
+                if (isset($_POST['listPeopleMultipleRolesX']) && $_POST['listPeopleMultipleRolesX'] !== ''){
+                    $stmt = $conn->prepare("SELECT P.name AS person_name, MP.name AS motion_picture_name, COUNT(*) AS role_count 
+                    FROM People P 
+                    JOIN Role R ON P.id = R.pid 
+                    JOIN MotionPicture MP ON R.mpid = MP.id 
+                    WHERE MP.rating > :listPeopleMultipleRolesX 
+                    GROUP BY P.id, MP.id 
+                    HAVING COUNT(*) > 1");
+                    // Bind the X value parameter
+                    $stmt->bindParam(':listPeopleMultipleRolesX', $_POST['listPeopleMultipleRolesX']);
+                    $headers = ["person name", "motion picture name", "number of roles"];
+                    $isMovie = true;
+                }else{
+                    echo "X Value is missing.";
+                }
+            // Query 10
+            }elseif ($action == 'findTop2ThrillerMoviesBoston') {
+                $stmt = $conn->prepare("SELECT MP.name AS movie_name, MP.rating 
+                FROM MotionPicture MP
+                JOIN Movie M ON MP.id = M.mpid 
+                JOIN Genre G ON MP.id = G.mpid 
+                JOIN Location L ON MP.id = L.mpid 
+                WHERE G.genre_name = 'Thriller' AND L.city = 'Boston' 
+                    AND NOT EXISTS (
+                        SELECT city 
+                        FROM Location 
+                        WHERE mpid = MP.id 
+                        AND city != 'Boston') 
+                ORDER BY MP.rating DESC 
+                LIMIT 2");
+                $headers = ["movie name", "rating"];
+                $isMovie = true;
+            // Query 11
+            } elseif(isset($_POST['findMovieLikesAgeButton'])){
+                // Check if the given X and Y value is available
+                if (isset($_POST['findMovieLikesAgeX']) && $_POST['findMovieLikesAgeX'] !== '' && isset($_POST['findMovieLikesAgeY']) && $_POST['findMovieLikesAgeY'] !== ''){
+                    $stmt = $conn->prepare("SELECT MP.name, COUNT(L.uemail) 
+                    FROM MotionPicture MP
+                    JOIN Movie M ON MP.id = M.mpid 
+                    JOIN Likes L ON MP.id = L.mpid 
+                    JOIN User U ON L.uemail = U.email 
+                    WHERE U.age < :findMovieLikesAgeY 
+                    GROUP BY MP.id 
+                    HAVING COUNT(L.uemail) > :findMovieLikesAgeX");
+                    // Bind the X and Y value parameter
+                    $stmt->bindParam(':findMovieLikesAgeX', $_POST['findMovieLikesAgeX']);
+                    $stmt->bindParam(':findMovieLikesAgeY', $_POST['findMovieLikesAgeY']);
+                    $headers = ["movie name", "number of likes"];
+                    $isMovie = true;
+                }else{
+                    echo "X or Y Value is missing.";
+                }
             // Query 12
-            } elseif ($action == 'findActorsInBothProductions') {
+            }elseif ($action == 'findActorsInBothProductions') {
                 $stmt = $conn->prepare("SELECT P.name AS actor_name, MP.name AS motion_picture_name
                                         FROM People P
                                         JOIN Role R ON P.id = R.pid
