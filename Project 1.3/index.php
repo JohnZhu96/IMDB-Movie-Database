@@ -95,6 +95,7 @@
                                     <a class="dropdown-item" href="#" data-toggle="modal" data-target="#modalListDirectorSeriesZip">Q5: List directors who have directed TV series in a zip code</a>
                                     <a class="dropdown-item" href="#" data-toggle="modal" data-target="#modalFindPeopleKAwards">Q6: Find people who have received more than k awards for a single motion picture in the same year</a>
                                     <a class="dropdown-item" href="#" data-toggle="modal" data-target="#modalFindUSAProducer">Q8: Find American Producers who had box office collection >= X with budget <= Y</a>
+                                    <a class="dropdown-item" href="#" data-toggle="modal" data-target="#modalListPeopleMultipleRoles">Q9: List people who played multiple roles in a motion picture where rating is more than X</a>
                                 </div>
                             </div>
                         </div>
@@ -257,6 +258,29 @@
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                             <button class="btn btn-primary" type="submit" name="findUSAProducerButton" id="findUSAProducerButton">Search</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Form for List people who played multiple roles in a motion picture where rating is more than X -->
+        <div class="modal fade" id="modalListPeopleMultipleRoles" tabindex="-1" role="dialog" aria-labelledby="modalListPeopleMultipleRolesLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <form id="listPeopleMultipleRolesForm" method="post">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="modalListPeopleMultipleRolesLabel">List people who played multiple roles in a motion picture where rating is more than X</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <input type="text" class="form-control" placeholder="Enter minimum rating: X" name="listPeopleMultipleRolesX" id="listPeopleMultipleRolesX">
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button class="btn btn-primary" type="submit" name="listPeopleMultipleRolesButton" id="listPeopleMultipleRolesButton">Search</button>
                         </div>
                     </div>
                 </form>
