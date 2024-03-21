@@ -96,7 +96,7 @@
                                     <a class="dropdown-item" href="#" data-toggle="modal" data-target="#modalFindPeopleKAwards">Q6: Find people who have received more than k awards for a single motion picture in the same year</a>
                                     <a class="dropdown-item" href="#" data-toggle="modal" data-target="#modalFindUSAProducer">Q8: Find American Producers who had box office collection >= X with budget <= Y</a>
                                     <a class="dropdown-item" href="#" data-toggle="modal" data-target="#modalListPeopleMultipleRoles">Q9: List people who played multiple roles in a motion picture where rating is more than X</a>
-                                    <a class="dropdown-item" href="#" data-toggle="modal" data-target="#modalFindMovieXLikesYAge">Q11: Find movies with more than X likes by users of age less than Y</a>
+                                    <a class="dropdown-item" href="#" data-toggle="modal" data-target="#modalFindMovieLikesAge">Q11: Find movies with more than X likes by users of age less than Y</a>
                                 </div>
                             </div>
                         </div>
@@ -283,6 +283,30 @@
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                             <button class="btn btn-primary" type="submit" name="listPeopleMultipleRolesButton" id="listPeopleMultipleRolesButton">Search</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Form for Find movies with more than X likes by users of age less than Y -->
+        <div class="modal fade" id="modalFindMovieLikesAge" tabindex="-1" role="dialog" aria-labelledby="modalFindMovieLikesAgeLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <form id="findMovieLikesAgeForm" method="post">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="modalFindMovieLikesAgeLabel">Find movies with more than X likes by users of age less than Y</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <input type="text" class="form-control" placeholder="Enter minimum likes: X" name="findMovieLikesAgeX" id="findMovieLikesAgeX">
+                            <input type="text" class="form-control" placeholder="Enter maximum age: Y" name="findMovieLikesAgeY" id="findMovieLikesAgeY">
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button class="btn btn-primary" type="submit" name="findMovieLikesAgeButton" id="findMovieLikesAgeButton">Search</button>
                         </div>
                     </div>
                 </form>
