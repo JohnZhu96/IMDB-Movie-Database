@@ -496,7 +496,7 @@
                     JOIN Role R ON P.id = R.pid 
                     JOIN MotionPicture MP ON R.mpid = MP.id 
                     JOIN Movie M ON MP.id = M.mpid 
-                    WHERE P.nationality = 'USA' AND M.boxoffice_collection >= :findUSAProducerX AND MP.budget <= :findUSAProducerY");
+                    WHERE P.nationality = 'USA' AND M.boxoffice_collection >= :findUSAProducerX AND MP.budget <= :findUSAProducerY AND R.role_name = 'Producer'");
                     // Bind the X and Y value parameter
                     $stmt->bindParam(':findUSAProducerX', $_POST['findUSAProducerX']);
                     $stmt->bindParam(':findUSAProducerY', $_POST['findUSAProducerY']);
